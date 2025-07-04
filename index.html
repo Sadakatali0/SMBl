@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to SMB</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: #1c1e21;
+            text-align: center;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box; /* Important */
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn-green { background-color: #28a745; }
+        .btn-green:hover { background-color: #218838; }
+
+        .btn-blue { background-color: #007bff; }
+        .btn-blue:hover { background-color: #0056b3; }
+        
+        .btn-orange { background-color: #ffc107; color: #212529; }
+        .btn-orange:hover { background-color: #e0a800; }
+
+        /* Links for switching forms */
+        .form-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* Section hiding logic */
+        .page-section {
+            display: none; /* Initially hide all sections */
+        }
+        .page-section.active {
+            display: block; /* Show only the active section */
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="main-nav" style="display:none;">
+        <a href="#home" onclick="showSection('home')">Home</a>
+        <a href="#deposit" onclick="showSection('deposit')">Deposit</a>
+        <a href="#withdraw" onclick="showSection('withdraw')">Withdraw</a>
+        <a href="#settings" onclick="showSection('settings')">Settings</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </nav>
+
+
+    <div id="register" class="page-section active container">
+        <h2>SMB Account Banayein</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="firstName">Pehla Naam</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Aakhri Naam</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Gmail</label>
+                <input type="email" id="regEmail" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-green">Register Karein</button>
+        </form>
+        <div class="form-link">
+            <p>Pehle se account hai? <a href="#" onclick="showSection('login')">Login Karein</a></p>
+        </div>
+        </div>
+
+    <div id="login" class="page-section container">
+        <h2>SMB Mein Login Karein</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">Gmail</label>
+                <input type="email" id="loginEmail" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-blue">Login</button>
+        </form>
+        <div class="form-link">
+            <p>Naya account banana hai? <a href="#" onclick="showSection('register')">Register Karein</a></p>
+        </div>
+        </div>
+    
+    <div id="home" class="page-section container">
+        <h2>Welcome, [User's First Name]!</h2>
+        <h3>Aapka Dashboard</h3>
+        
+        <div style="background-color: #e7f3ff; padding: 15px; border-radius: 8px; text-align: center;">
+            <h4>Aapka Maujooda Balance</h4>
+            <h2 style="color: #007bff;">PKR 5,000.00</h2> <h4>Aapka Bonus Balance</h4>
+            <h2 style="color: #28a745;">PKR 700.00</h2> </div>
+
+        <br>
+        
+        <h3>Daily Rewards</h3>
+        <p>Apna roz ka bonus haasil karne ke liye neeche diye gaye button par click karein.</p>
+        <button id="claimDailyBonus" class="btn btn-orange">Aaj ka Bonus Claim Karein</button>
+        <p id="bonusMessage" style="text-align:center; margin-top:10px;"></p>
+        </div>
+
+    <div id="deposit" class="page-section container">
+        <h2>Deposit Karein</h2>
+        <form id="depositForm">
+            <div class="form-group">
+                <label for="amount">Raqam (PKR)</label>
+                <input type="number" id="amount" name="amount" placeholder="e.g., 500" required>
+            </div>
+            <div class="form-group">
+                <label for="paymentMethod">Payment Method Chunein:</label>
+                <select id="paymentMethod" name="paymentMethod">
+                    <option value="jazzcash">JazzCash</option>
+                    <option value="easypaisa">Easypaisa</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="binance">Binance Pay</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-blue">Deposit</button>
+        </form>
+         </div>
+
+    <div id="withdraw" class="page-section container">
+        <h2>Withdraw Karein</h2>
+        <form id="withdrawForm">
+            <div class="form-group">
+                <label for="withdrawAmount">Raqam (PKR)</label>
+                <input type="number" id="withdrawAmount" name="withdrawAmount" required>
+            </div>
+            <div class="form-group">
+                <label for="withdrawMethod">Method Chunein:</label>
+                <select id="withdrawMethod" name="withdrawMethod">
+                    <option value="jazzcash">JazzCash</option>
+                    <option value="easypaisa">Easypaisa</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="binance">Binance</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="accountInfo">Account Information (Number / Email / Binance ID)</label>
+                <input type="text" id="accountInfo" name="accountInfo" placeholder="e.g., 03001234567" required>
+            </div>
+            <button type="submit" class="btn btn-green">Withdraw Request Bhejein</button>
+        </form>
+        </div>
+
+    <div id="settings" class="page-section container">
+        <h2>Settings</h2>
+        <ul style="list-style: none; padding: 0;">
+            <li style="background: #eee; margin: 5px 0; padding: 10px; border-radius: 5px;"><a href="#" style="text-decoration:none; color: #333;">Deposit History</a></li>
+            <li style="background: #eee; margin: 5px 0; padding: 10px; border-radius: 5px;"><a href="#" style="text-decoration:none; color: #333;">Withdrawal History</a></li>
+            <li style="background: #eee; margin: 5px 0; padding: 10px; border-radius: 5px;"><a href="#" style="text-decoration:none; color: #333;">Profile Settings (Password badlein)</a></li>
+        </ul>
+
+        <hr>
+
+        <h2>Help Centre</h2>
+        <p>Agar aapko koi masla darpesh hai, to hamari team se is email par rabta karein: <a href="mailto:support@smb.com">support@smb.com</a></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 SMB. All Rights Reserved.</p>
+        <p>Website Launch Date: 4/7/2025</p>
+    </footer>
+
+    <script>
+        // --- Basic JavaScript for showing/hiding sections ---
+        
+        // Initially show the register section
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('register');
+        });
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show the requested section
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+            }
+        }
+        
+        function showLoggedInState() {
+            // Hide login/register forms
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('register').style.display = 'none';
+            
+            // Show main navigation and home section
+            document.getElementById('main-nav').style.display = 'block';
+            showSection('home');
+        }
+        
+        function logout() {
+            // Hide main navigation
+            document.getElementById('main-nav').style.display = 'none';
+            // Show login form
+            showSection('login');
+        }
+
+        // --- Form Submission Simulation (For demonstration) ---
+
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Stop actual form submission
+            alert("Aap kamyabi se login ho gaye hain! (Yeh sirf ek demo hai)");
+            // In a real application, you would verify credentials with the backend first.
+            showLoggedInState();
+        });
+
+        // Register Form
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert("Aapka account register ho gaya hai! Ab login karein. (Yeh sirf ek demo hai)");
+            // In a real application, you would send data to the backend.
+            showSection('login'); 
+        });
+        
+        // Deposit Form
+        document.getElementById('depositForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const amount = document.getElementById('amount').value;
+            const method = document.getElementById('paymentMethod').value;
+            alert('Deposit request for PKR ' + amount + ' via ' + method + ' bhej di gayi hai. (Yeh sirf ek demo hai)');
+            // Real app would redirect to payment gateway via backend.
+        });
+
+        // Withdraw Form
+        document.getElementById('withdrawForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Aapki withdrawal request bhej di gayi hai. (Yeh sirf ek demo hai)');
+            // Real app would send data to the backend to trigger an email.
+        });
+
+        // Daily Bonus Claim
+        document.getElementById('claimDailyBonus').addEventListener('click', function() {
+            // This is a simulation. Backend will handle the logic.
+            this.disabled = true;
+            this.textContent = 'Aaj ka Bonus Claim Kar Liya';
+            document.getElementById('bonusMessage').textContent = 'Mubarak ho! Aapka daily bonus aapke account mein jama kar diya gaya hai.';
+        });
+
+    </script>
+</body>
+</html>
